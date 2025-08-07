@@ -22,6 +22,7 @@ namespace SaludGest.DTOs.Cita
         [Display(Name = "Estado")]
         public string Estado { get; set; }
 
+        [Required(ErrorMessage = "Por favor, ingrese las observaciones.")]
         [Display(Name = "Observaciones")]
         public string Observaciones { get; set; }
     }
