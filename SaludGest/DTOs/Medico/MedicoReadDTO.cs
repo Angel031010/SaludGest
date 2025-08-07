@@ -6,8 +6,12 @@ namespace SaludGest.DTOs.Medico
     public class MedicoReadDTO : RegistroDTO
     {
         public int MedicoId { get; set; }
-        [Display(Name = "Nombre Completo")]
-        public string NombreCompleto { get; set; }
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+        [Display(Name = "Apellido Paterno")]
+        public string ApellidoPaterno { get; set; }
+        [Display(Name = "Apellido Materno")]
+        public string ApellidoMaterno { get; set; }
 
         [Display(Name = "ID de Especialidad")]
         public int EspecialidadId { get; set; }
