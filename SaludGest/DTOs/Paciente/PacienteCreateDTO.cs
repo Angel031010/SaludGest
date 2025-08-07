@@ -7,6 +7,8 @@ namespace SaludGest.DTOs.Paciente
 {
     public class PacienteCreateDTO : RegistroDTO
     {
+        public int PacienteId { get; set; }
+
         [Required(ErrorMessage = "El campo Nombre es obligatorio.")]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
@@ -44,7 +46,8 @@ namespace SaludGest.DTOs.Paciente
         [Display(Name = "No. Seguro Social")]
         public string NumeroSeguroSocial { get; set; }
 
+        [Required(ErrorMessage = "Es obligatorio subir una foto.")]
         [Display(Name = "Foto del Paciente")]
-        public IFormFile? Foto { get; set; } // Para subir la foto
+        public IFormFile Foto { get; set; } // Para subir la foto
     }
 }
