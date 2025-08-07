@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SaludGest.DTOs.Paciente.PacienteReadDTO>
+
+@{
+    ViewData["Title"] = "Pacientes";
+    int num = 1;
+}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="display-6">@ViewData["Title"]</h1>
+
+            <a href="@Url.Action("Create", "Paciente")" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Agregar Paciente
+            </a>
+        </div>
+
+        @await Html.PartialAsync("_Alerts")
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Nombre)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.ApellidoPaterno)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.ApellidoMaterno)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Genero)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Telefono)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Email)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Direccion)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.NumeroSeguroSocial)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.FotoUrl)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Activo)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.FechaCreacion)</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@(num++)</th>
+                            <td>@item.Nombre</td>
+                            <td>@item.ApellidoPaterno</td>
+                            <td>@item.ApellidoMaterno</td>
+                            <td>@item.FechaNacimiento.ToString("dd/MM/yyyy")</td>
+                            <td>@item.Genero</td>
+                            <td>@item.Telefono</td>
+                            <td>@item.Email</td>
+                            <td>@item.Direccion</td>
+                            <td>@item.NumeroSeguroSocial</td>
+
+                            <td><img src="@item.FotoUrl" alt="Logo" width="100" /></td>
+
+                            <td>
+                                <i class="@(item.Activo ? "fas fa-check text-success" : "fas fa-times text-danger")"></i>
+                            </td>
+                            <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <div class="btn-group">
+
+                                    <a href="@Url.Action("Edit", "Category", new { id = item.PacienteId })"
+                                       class="btn btn-sm btn-secondary m-2">
+                                        <i class="fa-solid fa-pencil"></i> Editar
+                                    </a>
+
+                                    <a href="@Url.Action("Details", "Category", new { id = item.PacienteId })"
+                                       class="btn btn-sm btn-info m-2">
+                                        <i class="fa-solid fa-circle-info"></i> Detalles
+                                    </a>
+
+                                    <a href="@Url.Action("ConfirmDelete", "Category", new { id = item.PacienteId })"
+                                       class="btn btn-sm btn-danger m-2">
+                                        <i class="fa-solid fa-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        </div>
+        </div>

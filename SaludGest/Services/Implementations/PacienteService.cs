@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SaludGest.Constans;
 using SaludGest.Data;
 using SaludGest.DTOs.Paciente;
@@ -16,11 +17,11 @@ namespace SaludGest.Services.Implementations
         private readonly IWebHostEnvironment _env;
 
         public PacienteService(ApplicationDbContext applicationDbContext,
-            UploadSettings uploadSettings,
+            IOptions<UploadSettings> uploadSettings,
             IWebHostEnvironment web)
         {
             _ApplicationDbContext = applicationDbContext;
-            _uploadSettings = uploadSettings;
+            _uploadSettings = uploadSettings.Value;
             _env= web;
         }
 
