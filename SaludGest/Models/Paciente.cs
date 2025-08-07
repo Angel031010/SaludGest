@@ -12,6 +12,7 @@
         public string Email { get; set; }
         public string Direccion { get; set; }
         public string NumeroSeguroSocial { get; set; }
+        public string? FotoUrl { get; set; }
 
         public IEnumerable<Cita> Citas { get; set; }
         public IEnumerable<HistorialMedico> HistorialesMedicos { get; set; }
