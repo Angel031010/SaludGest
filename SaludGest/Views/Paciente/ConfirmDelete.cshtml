@@ -1,0 +1,71 @@
+﻿@model SaludGest.DTOs.Paciente.PacienteReadDTO
+
+@{
+    ViewData["Title"] = "Confirmar Eliminación de Paciente";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded">
+        <div class="card-header bg-secondary text-white text-center py-3">
+            <h3 class="mb-0">@ViewData["Title"]</h3>
+        </div>
+        <div class="card-body p-4">
+            <h5 class="text-center text-danger fw-bold">
+                <i class="fas fa-exclamation-triangle"></i>
+                ¿Estás seguro de que deseas eliminar a este paciente?
+            </h5>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.Nombre):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.Nombre)</dd>
+
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.ApellidoPaterno):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.ApellidoPaterno)</dd>
+
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.ApellidoMaterno):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.ApellidoMaterno)</dd>
+
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.FechaNacimiento):</dt>
+                        <dd class="col-7">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</dd>
+                    </dl>
+                </div>
+
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.Genero):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.Genero)</dd>
+
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.Telefono):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.Telefono)</dd>
+
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.Email):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.Email)</dd>
+
+                        <dt class="col-5 fw-bold">@Html.DisplayNameFor(model => model.NumeroSeguroSocial):</dt>
+                        <dd class="col-7">@Html.DisplayFor(model => model.NumeroSeguroSocial)</dd>
+                    </dl>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.FotoUrl))
+            {
+                <div class="text-center mt-3">
+                    <img src="@Model.FotoUrl" alt="Foto del paciente" class="img-thumbnail" style="max-height: 200px;" />
+                </div>
+            }
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "Paciente")" class="btn btn-outline-secondary px-4 py-2">
+                    <i class="fas fa-arrow-left"></i> Cancelar
+                </a>
+                <button type="submit" form="delete-form" class="btn btn-danger px-4 py-2 ms-2">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <form id="delete-form" method="post" action="@Url.Action("Delete", "Paciente", new { id = Model.PacienteId })" class="d-none"></form>
+</div>

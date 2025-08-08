@@ -1,0 +1,46 @@
+﻿@model SaludGest.DTOs.Paciente.PacienteReadDTO
+
+<div class="modal-header">
+    <h5 class="modal-title">Detalles del Paciente: @Model.Nombre @Model.ApellidoPaterno</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+</div>
+<div class="modal-body">
+    <dl class="row">
+        <dt class="col-sm-4">Nombre Completo:</dt>
+        <dd class="col-sm-8">@Model.Nombre @Model.ApellidoPaterno @Model.ApellidoMaterno</dd>
+
+        <dt class="col-sm-4">Fecha de Nacimiento:</dt>
+        <dd class="col-sm-8">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-4">Género:</dt>
+        <dd class="col-sm-8">@Model.Genero</dd>
+
+        <dt class="col-sm-4">Teléfono:</dt>
+        <dd class="col-sm-8">@Model.Telefono</dd>
+
+        <dt class="col-sm-4">Correo Electrónico:</dt>
+        <dd class="col-sm-8">@Model.Email</dd>
+
+        <dt class="col-sm-4">Dirección:</dt>
+        <dd class="col-sm-8">@Model.Direccion</dd>
+
+        <dt class="col-sm-4">No. Seguro Social:</dt>
+        <dd class="col-sm-8">@Model.NumeroSeguroSocial</dd>
+
+        <dt class="col-sm-4">Activo:</dt>
+        <dd class="col-sm-8">
+            <i class="@(Model.Activo ? "fas fa-check text-success" : "fas fa-times text-danger")"></i>
+        </dd>
+
+        @if (!string.IsNullOrEmpty(Model.FotoUrl))
+        {
+            <dt class="col-sm-4">Foto:</dt>
+            <dd class="col-sm-8">
+                <img src="@Model.FotoUrl" alt="Foto del paciente" class="img-fluid rounded" style="max-height: 150px;" />
+            </dd>
+        }
+    </dl>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+</div>

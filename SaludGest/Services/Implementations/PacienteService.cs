@@ -28,7 +28,7 @@ namespace SaludGest.Services.Implementations
         public async Task<List<PacienteReadDTO>> GetAllAsync()
         {
             var pacientes = await _ApplicationDbContext.Pacientes
-                .Where(p => p.Eliminado == false)
+                .Where(p => !p.Eliminado)
                 .Select(p => new PacienteReadDTO
                 {
                     PacienteId = p.PacienteId,
@@ -92,11 +92,11 @@ namespace SaludGest.Services.Implementations
             await _ApplicationDbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(int id, PacienteCreateDTO updateDto)
+        public async Task UpdateAsync(int id, PacienteEditDTO updateDto)
         {
             if (id != updateDto.PacienteId)
             {
-                throw new ArgumentException(string.Format(Messages.Error.PacienteNoEncontradoID, id));
+                throw new ApplicationException("El Id es incorrecto");
             }
             var paciente = await _ApplicationDbContext.Pacientes.FindAsync(updateDto.PacienteId);
 
@@ -114,7 +114,6 @@ namespace SaludGest.Services.Implementations
             paciente.Email = updateDto.Email;
             paciente.Direccion = updateDto.Direccion;
             paciente.NumeroSeguroSocial = updateDto.NumeroSeguroSocial;
-            paciente.FotoUrl = updateDto.Foto != null ? await UploadImage(updateDto.Foto) : paciente.FotoUrl;
 
             _ApplicationDbContext.Pacientes.Update(paciente);
             await _ApplicationDbContext.SaveChangesAsync();
@@ -123,13 +122,14 @@ namespace SaludGest.Services.Implementations
         public async Task DeleteAsync(int id)
         {
             var paciente = await _ApplicationDbContext.Pacientes.FindAsync(id);
-            if (paciente == null || paciente.Eliminado)
+            if (paciente == null)
             {
                 throw new KeyNotFoundException(string.Format(Messages.Error.PacienteNoEncontradoID, id));
             }
             paciente.Eliminado = true;
             paciente.Activo = false;
             _ApplicationDbContext.Pacientes.Update(paciente);
+            await _ApplicationDbContext.SaveChangesAsync();
         }
 
 

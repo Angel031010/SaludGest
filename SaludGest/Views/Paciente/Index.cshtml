@@ -63,17 +63,18 @@
                             <td>
                                 <div class="btn-group">
 
-                                    <a href="@Url.Action("Edit", "Category", new { id = item.PacienteId })"
+                                    <a href="@Url.Action("Edit", "Paciente", new { id = item.PacienteId })"
                                        class="btn btn-sm btn-secondary m-2">
                                         <i class="fa-solid fa-pencil"></i> Editar
                                     </a>
 
-                                    <a href="@Url.Action("Details", "Category", new { id = item.PacienteId })"
-                                       class="btn btn-sm btn-info m-2">
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-sm btn-info m-2 btn-detalles"
+                                       data-id="@item.PacienteId">
                                         <i class="fa-solid fa-circle-info"></i> Detalles
                                     </a>
 
-                                    <a href="@Url.Action("ConfirmDelete", "Category", new { id = item.PacienteId })"
+                                    <a href="@Url.Action("ConfirmDelete", "Paciente", new { id = item.PacienteId })"
                                        class="btn btn-sm btn-danger m-2">
                                         <i class="fa-solid fa-trash"></i> Eliminar
                                     </a>
@@ -85,5 +86,38 @@
             </tbody>
         </table>
 
+    </div>
+
+    <!-- Modal para mostrar detalles -->
+    <div class="modal fade" id="pacienteDetailsModal" tabindex="-1" aria-labelledby="pacienteDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <!-- Aquí se cargará el contenido parcial por AJAX -->
+            </div>
         </div>
-        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.btn-detalles').click(function () {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '@Url.Action("Details", "Paciente")/' + id,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#pacienteDetailsModal .modal-content').html(data);
+                        var modal = new bootstrap.Modal(document.getElementById('pacienteDetailsModal'));
+                        modal.show();
+                    },
+                    error: function () {
+                        alert('Error al cargar los detalles del paciente.');
+                    }
+                });
+            });
+        });
+    </script>
+}

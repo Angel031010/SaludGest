@@ -2,7 +2,7 @@
 
 namespace SaludGest.Services.Interfaces
 {
-    public interface IPacienteService : IGenericService<PacienteCreateDTO, PacienteReadDTO, PacienteCreateDTO>
+    public interface IPacienteService : IGenericService<PacienteCreateDTO, PacienteReadDTO, PacienteEditDTO>
     {
 
     }
