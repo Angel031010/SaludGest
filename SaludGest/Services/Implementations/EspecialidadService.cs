@@ -63,7 +63,7 @@ namespace SaludGest.Services.Implementations
         {
             if (id != updateDto.EspecialidadId)
             {
-                throw new ArgumentException(string.Format(Messages.Error.EspecialidadNoEncontradaID, id));
+                throw new ApplicationException("El Id es incorrecto");
             }
             var especialidad = await _applicationDbContext.Especialidades
                 .FindAsync(updateDto.EspecialidadId);
@@ -90,6 +90,7 @@ namespace SaludGest.Services.Implementations
             especialidad.Eliminado = true;
             especialidad.Activo = false;
             _applicationDbContext.Especialidades.Update(especialidad);
+            await _applicationDbContext.SaveChangesAsync();
         }
     }
 }

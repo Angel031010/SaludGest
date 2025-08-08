@@ -1,0 +1,105 @@
+﻿@model IEnumerable<SaludGest.DTOs.Especialidad.EspecialidadReadDTO>
+
+@{
+    ViewData["Title"] = "Especialidades";
+    int num = 1;
+}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="display-6">@ViewData["Title"]</h1>
+
+            <a href="@Url.Action("Create", "Especialidad")" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Agregar Especialidad
+            </a>
+        </div>
+
+        @await Html.PartialAsync("_Alerts")
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.NombreEspecialidad)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Descripcion)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Activo)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.FechaCreacion)</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@(num++)</th>
+                            <td>@item.NombreEspecialidad</td>
+                            <td>@item.Descripcion</td>
+
+                            <td>
+                                <i class="@(item.Activo ? "fas fa-check text-success" : "fas fa-times text-danger")"></i>
+                            </td>
+                            <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <div class="btn-group">
+
+                                    <a href="@Url.Action("Edit", "Especialidad", new { id = item.EspecialidadId })"
+                                       class="btn btn-sm btn-secondary m-2">
+                                        <i class="fa-solid fa-pencil"></i> Editar
+                                    </a>
+
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-sm btn-info m-2 btn-detalles-especialidad"
+                                       data-id="@item.EspecialidadId">
+                                        <i class="fa-solid fa-circle-info"></i> Detalles
+                                    </a>
+
+                                    <a href="@Url.Action("ConfirmDelete", "Especialidad", new { id = item.EspecialidadId })"
+                                       class="btn btn-sm btn-danger m-2">
+                                        <i class="fa-solid fa-trash"></i> Eliminar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <!-- Modal para mostrar detalles -->
+    <div class="modal fade" id="especialidadDetailsModal" tabindex="-1" aria-labelledby="especialidadDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <!-- Aquí se cargará el contenido parcial por AJAX -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.btn-detalles-especialidad').click(function () {
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '@Url.Action("Details", "Especialidad")/' + id,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#especialidadDetailsModal .modal-content').html(data);
+                        var modal = new bootstrap.Modal(document.getElementById('especialidadDetailsModal'));
+                        modal.show();
+                    },
+                    error: function () {
+                        alert('Error al cargar los detalles de la especialidad.');
+                    }
+                });
+            });
+        });
+    </script>
+}

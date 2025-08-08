@@ -1,0 +1,42 @@
+﻿@model SaludGest.DTOs.Especialidad.EspecialidadCreateDTO
+
+@{
+    ViewData["Title"] = "Editar Especialidad";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card shadow-lg rounded">
+            <div class="card-header bg-secondary text-white text-center py-3">
+                <h1 class="h3">@ViewData["Title"]</h1>
+            </div>
+
+            <div class="card-body p-4">
+                @await Html.PartialAsync("_Alerts")
+                <form method="post" asp-route-id="@Model.EspecialidadId" class="p-3">
+                    <input type="hidden" asp-for="EspecialidadId" />
+                    <div class="mb-3">
+                        <label asp-for="NombreEspecialidad" class="form-label fs-5 fw-bold"></label>
+                        <input asp-for="NombreEspecialidad" class="form-control" type="text" placeholder="Ingrese el nombre del producto" />
+                        <span asp-validation-for="NombreEspecialidad" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Descripcion" class="form-label fs-5 fw-bold"></label>
+                        <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Ingrese la descripcion del producto"></textarea>
+                        <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="Especialidad" class="btn btn-outline-secondary px-4 py-2">Cancelar</a>
+
+                        <button type="submit" class="btn btn-success px-4 py-2">Guardar</button>
+                    </div>
+                </form>
+            </div>
+
+            </<div>
+            </div>
+        </div>
+    </div>
+</div>
