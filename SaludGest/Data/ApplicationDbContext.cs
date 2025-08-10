@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SaludGest.Models;
 
 namespace SaludGest.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -115,6 +116,43 @@ namespace SaludGest.Data
                 new Cita { CitaId = 4, FechaHora = new DateTime(2025, 5, 10, 8, 0, 0), MedicoId = 4, PacienteId = 4, Estado = "Completada", Observaciones = "Consulta de seguimiento" },
                 new Cita { CitaId = 5, FechaHora = new DateTime(2025, 6, 8, 14, 0, 0), MedicoId = 5, PacienteId = 5, Estado = "Programada", Observaciones = "Primera cita" }
             );
+
+            #region Usuario administrador y rol
+
+            var adminRoleId = Guid.NewGuid().ToString();
+            var adminUserId = Guid.NewGuid().ToString();
+            var hasher = new PasswordHasher<ApplicationUser>();
+
+            // Crear rol administrador
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            });
+
+            // Crear usuario administrador
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                Id = adminUserId,
+                UserName = "admin@saludgest.com",
+                NormalizedUserName = "ADMIN@SALUDGEST.COM",
+                Email = "admin@saludgest.com",
+                NormalizedEmail = "ADMIN@SALUDGEST.COM",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Admin123!"), // Cambia la contraseña
+                SecurityStamp = Guid.NewGuid().ToString(),
+                // Si ApplicationUser tiene campos obligatorios adicionales, inclúyelos aquí
+            });
+
+            // Asignar rol admin al usuario administrador
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = adminRoleId,
+                UserId = adminUserId
+            });
+
+            #endregion
         }
 
     }
