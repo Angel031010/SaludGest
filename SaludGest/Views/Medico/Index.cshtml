@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SaludGest.DTOs.Paciente.PacienteReadDTO>
+﻿@model IEnumerable<SaludGest.DTOs.Medico.MedicoReadDTO>
 
 @{
-    ViewData["Title"] = "Pacientes";
+    ViewData["Title"] = "Médicos";
     int num = 1;
 }
 
@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="display-6">@ViewData["Title"]</h1>
 
-            <a href="@Url.Action("Create", "Paciente")" class="btn btn-success">
+            <a href="@Url.Action("Create", "Medico")" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Agregar Paciente
             </a>
         </div>
@@ -24,11 +24,11 @@
                     <th scope="col">#</th>
                     <th scope="col">@Html.DisplayNameFor(m => m.Nombre)</th>
                     <th scope="col">@Html.DisplayNameFor(m => m.ApellidoPaterno)</th>
-                    <th scope="col">@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
-                    <th scope="col">@Html.DisplayNameFor(m => m.Telefono)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.ApellidoMaterno)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.EspecialidadNombre)</th>
                     <th scope="col">@Html.DisplayNameFor(m => m.Email)</th>
-                    <th scope="col">@Html.DisplayNameFor(m => m.NumeroSeguroSocial)</th>
-                    <th scope="col">@Html.DisplayNameFor(m => m.FotoUrl)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.DepartamentoNombre)</th>
+                    <th scope="col">@Html.DisplayNameFor(m => m.Activo)</th>
                     <th scope="col">@Html.DisplayNameFor(m => m.FechaCreacion)</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -42,29 +42,29 @@
                             <th scope="row">@(num++)</th>
                             <td>@item.Nombre</td>
                             <td>@item.ApellidoPaterno</td>
-                            <td>@item.FechaNacimiento.ToString("dd/MM/yyyy")</td>
-                            <td>@item.Telefono</td>
+                            <td>@item.ApellidoMaterno</td>
+                            <td>@item.EspecialidadNombre</td>
                             <td>@item.Email</td>
-                            <td>@item.NumeroSeguroSocial</td>
-
-                            <td><img src="@item.FotoUrl" alt="Logo" width="100" /></td>
-
+                            <td>@item.DepartamentoNombre</td>
+                            <td>
+                                <i class="@(item.Activo ? "fas fa-check text-success" : "fas fa-times text-danger")"></i>
+                            </td>
                             <td>@item.FechaCreacion.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <div class="btn-group">
 
-                                    <a href="@Url.Action("Edit", "Paciente", new { id = item.PacienteId })"
+                                    <a href="@Url.Action("Edit", "Medico", new { id = item.MedicoId })"
                                        class="btn btn-sm btn-secondary m-2">
                                         <i class="fa-solid fa-pencil"></i> Editar
                                     </a>
 
                                     <a href="javascript:void(0);"
                                        class="btn btn-sm btn-info m-2 btn-detalles"
-                                       data-id="@item.PacienteId">
+                                       data-id="@item.MedicoId">
                                         <i class="fa-solid fa-circle-info"></i> Detalles
                                     </a>
 
-                                    <a href="@Url.Action("ConfirmDelete", "Paciente", new { id = item.PacienteId })"
+                                    <a href="@Url.Action("ConfirmDelete", "Medico", new { id = item.MedicoId })"
                                        class="btn btn-sm btn-danger m-2">
                                         <i class="fa-solid fa-trash"></i> Eliminar
                                     </a>
@@ -79,7 +79,7 @@
     </div>
 
     <!-- Modal para mostrar detalles -->
-    <div class="modal fade" id="pacienteDetailsModal" tabindex="-1" aria-labelledby="pacienteDetailsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="medicoDetailsModal" tabindex="-1" aria-labelledby="medicoDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <!-- Aquí se cargará el contenido parcial por AJAX -->
@@ -96,11 +96,11 @@
                 var id = $(this).data('id');
 
                 $.ajax({
-                    url: '@Url.Action("Details", "Paciente")/' + id,
+                    url: '@Url.Action("Details", "Medico")/' + id,
                     type: 'GET',
                     success: function (data) {
-                        $('#pacienteDetailsModal .modal-content').html(data);
-                        var modal = new bootstrap.Modal(document.getElementById('pacienteDetailsModal'));
+                        $('#medicoDetailsModal .modal-content').html(data);
+                        var modal = new bootstrap.Modal(document.getElementById('medicoDetailsModal'));
                         modal.show();
                     },
                     error: function () {

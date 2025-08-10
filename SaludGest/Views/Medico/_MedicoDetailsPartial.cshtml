@@ -1,0 +1,48 @@
+﻿@model SaludGest.DTOs.Medico.MedicoReadDTO
+
+<div class="modal-header bg-primary text-white">
+    <h5 class="modal-title">
+        <i class="fas fa-user-md"></i> Detalles del Médico: @Model.Nombre @Model.ApellidoPaterno
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+</div>
+
+<div class="modal-body">
+    <dl class="row">
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.Nombre):</dt>
+        <dd class="col-sm-8">@Model.Nombre</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.ApellidoPaterno):</dt>
+        <dd class="col-sm-8">@Model.ApellidoPaterno</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.ApellidoMaterno):</dt>
+        <dd class="col-sm-8">@Model.ApellidoMaterno</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.EspecialidadNombre):</dt>
+        <dd class="col-sm-8">@Model.EspecialidadNombre</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.DepartamentoNombre):</dt>
+        <dd class="col-sm-8">@Model.DepartamentoNombre</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.Email):</dt>
+        <dd class="col-sm-8">@Model.Email</dd>
+
+        <dt class="col-sm-4 fw-bold">Activo:</dt>
+        <dd class="col-sm-8">
+            @if (Model.Activo)
+            {
+                <span class="text-success"><i class="fas fa-check-circle"></i> Sí</span>
+            }
+            else
+            {
+                <span class="text-danger"><i class="fas fa-times-circle"></i> No</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <i class="fas fa-times"></i> Cerrar
+    </button>
+</div>

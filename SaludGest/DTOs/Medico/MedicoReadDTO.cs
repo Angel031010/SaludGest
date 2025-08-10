@@ -27,6 +27,8 @@ namespace SaludGest.DTOs.Medico
 
         [Display(Name = "Departamento")]
         public string DepartamentoNombre { get; set; }
+        [Display(Name = "Teléfono")]
+        public string Telefono { get; set; }
 
     }
 }

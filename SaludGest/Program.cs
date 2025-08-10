@@ -22,6 +22,7 @@ builder.Services.AddScoped<ICustomExcepction, CustomException>();
 builder.Services.AddScoped<IMedicoService, MedicoService>();
 builder.Services.AddScoped<IEspecialidadService, EspecialidadService>();
 builder.Services.AddScoped<ICitaService, CitaService>();
+builder.Services.AddScoped<IDepartamentoService, DepartamentoService>();
 #endregion
 
 

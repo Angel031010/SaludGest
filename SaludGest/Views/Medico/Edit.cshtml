@@ -1,0 +1,80 @@
+﻿@model SaludGest.DTOs.Medico.MedicoCreateDTO
+
+@{
+    ViewData["Title"] = "Editar Médico";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card shadow-lg rounded">
+            <div class="card-header bg-secondary text-white text-center py-3">
+                <h1 class="h3">@ViewData["Title"]</h1>
+            </div>
+
+            <div class="card-body p-4">
+                @await Html.PartialAsync("_Alerts")
+
+                <form method="post" asp-route-id="@Model.MedicoId" class="p-3">
+                    <div class="mb-3">
+                        <input type="hidden" asp-for="MedicoId" />
+
+                        <label asp-for="Nombre" class="form-label fs-5 fw-bold"></label>
+                        <input asp-for="Nombre" class="form-control" type="text" placeholder="Ingrese el nombre del médico" />
+                        <span asp-validation-for="Nombre" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ApellidoPaterno" class="form-label fs-5 fw-bold"></label>
+                        <input asp-for="ApellidoPaterno" class="form-control" type="text" placeholder="Ingrese el apellido paterno" />
+                        <span asp-validation-for="ApellidoPaterno" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ApellidoMaterno" class="form-label fs-5 fw-bold"></label>
+                        <input asp-for="ApellidoMaterno" class="form-control" type="text" placeholder="Ingrese el apellido materno" />
+                        <span asp-validation-for="ApellidoMaterno" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Telefono" class="form-label fs-5 fw-semibold"></label>
+                        <input asp-for="Telefono" class="form-control" type="tel" placeholder="Ingrese el número de teléfono" />
+                        <span asp-validation-for="Telefono" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fs-5 fw-semibold"></label>
+                        <input asp-for="Email" class="form-control" type="email" placeholder="Ingrese el correo electrónico" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    @* Especialidad *@
+                    <div class="mb-3">
+                        <label asp-for="EspecialidadId" class="form-label fs-5 fw-bold"></label>
+                        <select asp-for="EspecialidadId" asp-items="ViewBag.Especialidades" class="form-select form-select-lg">
+                            <option value="">Seleccione una especialidad</option>
+                        </select>
+                        <span asp-validation-for="EspecialidadId" class="text-danger small"></span>
+                    </div>
+
+                    @* Departamento *@
+                    <div class="mb-3">
+                        <label asp-for="DepartamentoId" class="form-label fs-5 fw-bold"></label>
+                        <select asp-for="DepartamentoId" asp-items="ViewBag.Departamentos" class="form-select form-select-lg">
+                            <option value="">Seleccione un departamento</option>
+                        </select>
+                        <span asp-validation-for="DepartamentoId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="Medico" class="btn btn-outline-secondary px-4 py-2">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success px-4 py-2 ms-2">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

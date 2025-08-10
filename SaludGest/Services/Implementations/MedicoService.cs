@@ -48,6 +48,7 @@ namespace SaludGest.Services.Implementations
                     ApellidoMaterno = m.ApellidoMaterno,
                     EspecialidadId = m.EspecialidadId,
                     Email = m.Email,
+                    Telefono = m.Telefono,
                     DepartamentoId = m.DepartamentoId,
                     EspecialidadNombre = m.Especialidad.NombreEspecialidad,
                     DepartamentoNombre = m.Departamento.NombreDepartamento,
