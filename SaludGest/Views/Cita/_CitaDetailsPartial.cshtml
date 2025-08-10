@@ -1,0 +1,48 @@
+﻿@model SaludGest.DTOs.Cita.CitaReadDTO
+
+<div class="modal-header bg-primary text-white">
+    <h5 class="modal-title">
+        <i class="fas fa-calendar-check"></i> Detalles de la Cita: @Model.CitaId
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+</div>
+
+<div class="modal-body">
+    <dl class="row">
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.FechaHora):</dt>
+        <dd class="col-sm-8">@Model.FechaHora.ToString("dd/MM/yyyy HH:mm")</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.NombreMedico):</dt>
+        <dd class="col-sm-8">@Model.NombreMedico</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.NombrePaciente):</dt>
+        <dd class="col-sm-8">@Model.NombrePaciente</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.Estado):</dt>
+        <dd class="col-sm-8">@Model.Estado</dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.Observaciones):</dt>
+        <dd class="col-sm-8">@Model.Observaciones</dd>
+
+        <dt class="col-sm-4 fw-bold">Activo:</dt>
+        <dd class="col-sm-8">
+            @if (Model.Activo)
+            {
+                <span class="text-success"><i class="fas fa-check-circle"></i> Sí</span>
+            }
+            else
+            {
+                <span class="text-danger"><i class="fas fa-times-circle"></i> No</span>
+            }
+        </dd>
+
+        <dt class="col-sm-4 fw-bold">@Html.DisplayNameFor(m => m.FechaCreacion):</dt>
+        <dd class="col-sm-8">@Model.FechaCreacion.ToString("dd/MM/yyyy")</dd>
+    </dl>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <i class="fas fa-times"></i> Cerrar
+    </button>
+</div>

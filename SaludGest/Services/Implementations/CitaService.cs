@@ -77,8 +77,7 @@ namespace SaludGest.Services.Implementations
             {
                 throw new ApplicationException("Id Incorrecto");
             }
-            var cita = await _context.Citas
-                .FindAsync(updateDto.CitaId);
+            var cita = await _context.Citas.FindAsync(id);
             if (cita == null || cita.Eliminado)
                 {
                 throw new KeyNotFoundException(string.Format(Messages.Error.CitaNoEncontradaID, id));
@@ -106,6 +105,11 @@ namespace SaludGest.Services.Implementations
 
             _context.Citas.Update(cita);
             await _context.SaveChangesAsync();
+        }
+
+        public Task UpdateAsync(int id, CitaCreateDTO updateDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

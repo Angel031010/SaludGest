@@ -9,13 +9,13 @@ namespace SaludGest.DTOs.Cita
         [Display(Name = "Fecha y Hora")]
         public DateTime FechaHora { get; set; }
 
-        [Display(Name = "ID Médico")]
+        [Display(Name = "Médico")]
         public int MedicoId { get; set; }
 
         [Display(Name = "Nombre del Médico")]
         public string NombreMedico { get; set; }
 
-        [Display(Name = "ID Paciente")]
+        [Display(Name = "Paciente")]
         public int PacienteId { get; set; }
 
         [Display(Name = "Nombre del Paciente")]

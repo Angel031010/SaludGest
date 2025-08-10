@@ -1,0 +1,68 @@
+﻿@model SaludGest.DTOs.Cita.CitaCreateDTO
+
+@{
+    ViewData["Title"] = "Editar Cita";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card shadow-lg rounded w-100">
+            <div class="card-header bg-secondary text-white text-center py-3">
+                <h1 class="h3">@ViewData["Title"]</h1>
+            </div>
+
+            <div class="card-body p-4">
+                @await Html.PartialAsync("_Alerts")
+
+                <form method="post" asp-action="Edit" asp-route-id="@Model.CitaId" class="p-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="CitaId" />
+
+                    <div class="mb-3">
+                        <label asp-for="FechaHora" class="form-label fs-5 fw-bold"></label>
+                        <input asp-for="FechaHora" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="FechaHora" class="text-danger small"></span>
+                    </div>
+
+                    @* Médico *@
+                    <div class="mb-3">
+                        <label asp-for="MedicoId" class="form-label fs-5 fw-bold"></label>
+                        <select asp-for="MedicoId" asp-items="ViewBag.Medicos" class="form-select form-select-lg">
+                            <option value="">Seleccione un médico</option>
+                        </select>
+                        <span asp-validation-for="MedicoId" class="text-danger small"></span>
+                    </div>
+
+                    @* Paciente *@
+                    <div class="mb-3">
+                        <label asp-for="PacienteId" class="form-label fs-5 fw-bold"></label>
+                        <select asp-for="PacienteId" asp-items="ViewBag.Pacientes" class="form-select form-select-lg">
+                            <option value="">Seleccione un paciente</option>
+                        </select>
+                        <span asp-validation-for="PacienteId" class="text-danger small"></span>
+                    </div>
+
+                    @* Estado *@
+                    <div class="mb-3">
+                        <label asp-for="Estado" class="form-label fs-5 fw-bold"></label>
+                        <input asp-for="Estado" class="form-control" type="text" placeholder="Programada / Atendida / Cancelada" />
+                        <span asp-validation-for="Estado" class="text-danger small"></span>
+                    </div>
+
+                    @* Observaciones *@
+                    <div class="mb-3">
+                        <label asp-for="Observaciones" class="form-label fs-5 fw-bold"></label>
+                        <textarea asp-for="Observaciones" class="form-control" rows="4" placeholder="Escribe observaciones (opcional)"></textarea>
+                        <span asp-validation-for="Observaciones" class="text-danger small"></span>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="Cita" class="btn btn-outline-secondary px-4 py-2">Cancelar</a>
+
+                        <button type="submit" class="btn btn-success px-4 py-2">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
