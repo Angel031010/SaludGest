@@ -117,43 +117,74 @@ namespace SaludGest.Data
                 new Cita { CitaId = 5, FechaHora = new DateTime(2025, 6, 8, 14, 0, 0), MedicoId = 5, PacienteId = 5, Estado = "Programada", Observaciones = "Primera cita" }
             );
 
-            #region Usuario administrador y rol
+            #region Roles y Usuarios Iniciales
 
             var adminRoleId = Guid.NewGuid().ToString();
             var adminUserId = Guid.NewGuid().ToString();
+
+            var doctorRoleId = Guid.NewGuid().ToString();
+            var doctorUserId = Guid.NewGuid().ToString();
+
             var hasher = new PasswordHasher<ApplicationUser>();
 
             // Crear rol administrador
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
-            {
-                Id = adminRoleId,
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            });
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = adminRoleId,
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Id = doctorRoleId,
+                    Name = "Doctor",
+                    NormalizedName = "DOCTOR"
+                }
+            );
 
             // Crear usuario administrador
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
-            {
-                Id = adminUserId,
-                UserName = "admin@saludgest.com",
-                NormalizedUserName = "ADMIN@SALUDGEST.COM",
-                Email = "admin@saludgest.com",
-                NormalizedEmail = "ADMIN@SALUDGEST.COM",
-                EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Admin123!"), // Cambia la contraseña
-                SecurityStamp = Guid.NewGuid().ToString(),
-                // Si ApplicationUser tiene campos obligatorios adicionales, inclúyelos aquí
-            });
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
+                {
+                    Id = adminUserId,
+                    UserName = "admin@saludgest.com",
+                    NormalizedUserName = "ADMIN@SALUDGEST.COM",
+                    Email = "admin@saludgest.com",
+                    NormalizedEmail = "ADMIN@SALUDGEST.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "Admin123!"),
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                },
+                new ApplicationUser
+                {
+                    Id = doctorUserId,
+                    UserName = "doctor@saludgest.com",
+                    NormalizedUserName = "DOCTOR@SALUDGEST.COM",
+                    Email = "doctor@saludgest.com",
+                    NormalizedEmail = "DOCTOR@SALUDGEST.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "Doctor123!"),
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                }
+            );
 
             // Asignar rol admin al usuario administrador
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = adminRoleId,
-                UserId = adminUserId
-            });
-
-            #endregion
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>
+                {
+                    RoleId = adminRoleId,
+                    UserId = adminUserId
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = doctorRoleId,
+                    UserId = doctorUserId
+                }
+            );
         }
+            #endregion
 
+
+        }
     }
-}
